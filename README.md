@@ -10,113 +10,45 @@
 
 ## Overview
 
-**Bio-Link MQTT Android Client** is an Android MQTT messaging layer and accompanying documentation that forms the mobile side of the Bio-Link communication architecture. It manages session state, enforces privacy-gating logic governing when Human State Level (HSL) tokens may be shared, and handles the MQTT connection to the robot-hosted broker.
+**Bio-Link MQTT Android Client** is a reusable Android MQTT client library. It provides a single coroutine-friendly API over established MQTT engines, so application code can connect, publish, and subscribe without depending directly on a specific MQTT implementation.
 
-Human-state information originates from the Bio-Link Edge Hub running on the Android device. This open-source component provides the standardised MQTT interface and session logic layer — enabling structured, privacy-controlled sharing of human-state information with robotic systems over a local network.
+The library is a general-purpose MQTT transport layer for Android — it is not tied to any specific application, message schema, or robotics framework. It is used as the MQTT transport layer within the Bio-Link Android application, and is released openly so that it can be reused independently by other FORTIS partners and by third-party Android developers building MQTT-connected applications.
 
-In alignment with the [FORTIS project](https://fortis-project.eu) priorities, this component contributes to the **Human Cognition Toolkit** as a reusable Android-to-ROS2 bridge built on open standards. It supports interoperability, modular integration and reuse across FORTIS experiments and beyond.
-
----
-
-## Communication Architecture
-
-Communication operates over a local network to a robot-hosted MQTT broker (MQTT 3.1.1), ensuring all data exchange remains within the local environment. This client controls session state and governs when HSL tokens are shared; the robot publishes periodic presence updates in return.
-
-Communication is structured around two MQTT topics:
-
-| Topic | Direction | Description |
-|---|---|---|
-| `biolink/human_state` | App → Robot | HSL tokens published during active sessions |
-| `biolink/robot_presence` | Robot → App | Robot status updates subscribed to by this client |
-
-### Message Definitions
-
-**Human State** (`biolink/human_state`) — published by this client:
-
-```json
-{
-  "timestamp": "ISO8601",
-  "hsl_state": "LOW | HIGH",
-  "confidence": 0.0,
-  "session_id": "uuid"
-}
-```
-
-**Robot Presence** (`biolink/robot_presence`) — subscribed to by this client:
-
-```json
-{
-  "timestamp": "ISO8601",
-  "robot_id": "embrace_robot_01",
-  "active": true,
-  "healthy": true
-}
-```
-
-The `healthy` flag indicates whether the robot is operating normally. The `active` flag indicates whether the robot intends to participate in an interaction session, allowing the robot to signal session termination (`active: false`) while remaining available for future interactions.
-
-Payloads use a minimal UTF-8 encoded JSON structure optimised for low-latency parsing and robust operation on mobile systems. Complex nesting is avoided to ensure reliable local network communication.
-
-> Message definitions represent the current planned communication structure and may be refined as implementation progresses.
+In alignment with the [FORTIS project](https://fortis-project.eu) priorities, this component contributes to the **Human Cognition Toolkit** by providing a dependable, standards-based MQTT transport layer for human-robot interaction systems. By keeping the library decoupled from any particular schema or use case, it supports interoperability, modular integration, and reuse across FORTIS experiments and beyond.
 
 ---
 
-## Session & Privacy Gating
+## What This Library Provides
 
-Session and privacy gating logic is a first-class design concern and a key aspect of this open-source release. Key properties:
+- A single, coroutine-friendly Kotlin API for MQTT connect, publish, subscribe, and disconnect
+- Support for multiple MQTT engines under a common interface, so applications are not locked to one implementation
+- Observable connection state and incoming messages, for clean integration with modern Android app architecture
+- Configurable connection options (credentials, QoS, keep-alive, last will, automatic reconnect)
+- Input validation to catch common configuration mistakes early
 
-- **Session activation** — HSL token publication only begins when an active session is established. The client monitors the robot's `active` flag and aligns its own session state accordingly.
-- **Session termination** — publication stops immediately when the session ends; no residual data is retained on the broker.
-- **Local network scope** — the broker is robot-hosted, meaning only robots on the local network can receive HSL tokens. No data is transmitted to external services.
-- **Documentation** — the complete session management and privacy-gating design will be released as `docs/session-and-privacy.md` to support audit, replication and adaptation by other FORTIS partners.
-
----
-
-## Planned Features
-
-- MQTT client for Android (MQTT 3.1.1, local broker)
-- Session state management aligned with robot presence signals
-- HSL token publishing with configurable topic and rate
-- Robot presence subscription and status monitoring
-- Privacy-gating enforcement with documented logic
-- Documentation: message schema reference, session & privacy design, integration guide
+This library is schema-agnostic: it transports MQTT messages but does not define or interpret message content. Applications built on top of it — such as the Bio-Link Android application — define their own topics and payload structures separately; that application-level logic is not part of this repository.
 
 ---
 
-## Planned Repository Structure
+## Value for FORTIS Partners and Third-Party Developers
 
-```
-Bio-Link-MQTT-Android-Client/
-├── app/
-│   └── src/
-│       ├── main/
-│       │   └── java/com/ibreve/biolink/mqtt/   # MQTT client and session logic
-│       └── test/                                # Unit tests
-├── docs/
-│   ├── message-schema.md                        # JSON message format reference
-│   ├── session-and-privacy.md                   # Session management & privacy gating design
-│   └── integration-guide.md                     # Integration with ROS2 Robot Bridge
-├── gradle/
-├── build.gradle
-├── AndroidManifest.xml
-└── README.md
-```
+- **FORTIS partners** can reuse this library directly as a tested MQTT transport layer for their own Android-based experiments, independent of how Bio-Link uses it.
+- **Third-party Robot and Android developers** get a general-purpose, dependency-light MQTT client library suitable for any project requiring reliable MQTT connectivity from Android.
+- **Anyone integrating with the Bio-Link ecosystem** benefits from visibility into the transport layer that underpins the Android side of the Bio-Link communication architecture.
 
 ---
 
-## Dependencies (Planned)
+## Planned Repository Contents at Release (M10)
 
-| Dependency | Purpose |
-|---|---|
-| Android SDK (API 26+) | Platform |
-| Eclipse Paho MQTT Android Client | MQTT communication |
-| AndroidX / Jetpack | Lifecycle management |
+- MQTT client library with API documentation
+- Sample application demonstrating connect, publish, subscribe, and disconnect
+- Build, test, and publishing instructions
 
 ---
 
 ## Related Component
 
-This client publishes data consumed by the [Bio-Link ROS2 Robot Bridge](https://github.com/iBreve/Bio-Link-ROS2-Robot-Bridge), which subscribes to the MQTT topics and maps incoming human-state information to ROS 2 topics and robot behaviours.
+This library is used as the MQTT transport layer on the Android side of the Bio-Link communication architecture, which connects to the [Bio-Link ROS2 Robot Bridge](https://github.com/iBreve/Bio-Link-ROS2-Robot-Bridge) via MQTT. See that repository for the robot-side integration and message structures.
 
 ---
 
@@ -138,7 +70,7 @@ You may obtain a copy of the License at
 
 ## Acknowledgement
 
-<img src=https://raw.githubusercontent.com/iBreve/Bio-Link-MQTT-Android-Client/main/FORTIS%20EU%20funding%20logo.png" alt="Funded by the European Union" width="300"/>
+<img src="https://raw.githubusercontent.com/iBreve/Bio-Link-MQTT-Android-Client/main/FORTIS%20EU%20funding%20logo.png" alt="Funded by the European Union" width="300"/>
 
 The Bio-Link project has received funding from EC through the FORTIS (Grant Agreement no. 101135707).
 
