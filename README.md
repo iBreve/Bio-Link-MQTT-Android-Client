@@ -306,7 +306,3 @@ The mqtt-client module vendors source from Eclipse Paho Android Service 1.1.1. S
 The Bio-Link project has received funding from EC through the FORTIS (Grant Agreement no. 101135707).
 
 Views and opinions expressed are those of the author(s) only and do not necessarily reflect those of the European Union or the European Research Executive Agency. Neither the European Union nor the granting authority can be held responsible for them.
-
-## Contact
-
-For questions, bug reports or feature requests, please [open an issue](../../issues) in this repository.
