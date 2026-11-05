@@ -24,5 +24,11 @@ jobs:
 
       - uses: gradle/actions/setup-gradle@v4
 
-      - name: Build and run unit tests
-        run: ./gradlew :mqtt-client:testDebugUnitTest :app:assembleDebug
+      - name: Build and run unit tests (retries on download errors)
+        run: |
+          for i in 1 2 3; do
+            ./gradlew :mqtt-client:testDebugUnitTest :app:assembleDebug && exit 0
+            echo "Attempt $i failed; retrying in 30 seconds"
+            sleep 30
+          done
+          exit 1
