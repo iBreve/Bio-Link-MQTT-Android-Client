@@ -28,7 +28,7 @@ The library is a general-purpose MQTT transport layer. It carries MQTT messages 
 The library is currently used from source or from your local Maven repository (see [Publishing](#publishing)). Create a client through `MqttClientFactory`:
 
 ```kotlin
-import com.ibreve.biolink.mqtt.*
+import com.routepatch.mqtt_client.*
 
 val client = MqttClientFactory.create(
     context = context,
@@ -239,13 +239,13 @@ Publish the library to Maven local:
 The checked-in `gradle.properties` publishes the library as:
 
 ```text
-com.ibreve.biolink:mqtt-client:0.0.1-SNAPSHOT
+com.routepatch.biolink:mqtt-client:0.0.1-SNAPSHOT
 ```
 
 Override coordinates with Gradle properties:
 
 ```properties
-mqttClientGroup=com.ibreve.biolink
+mqttClientGroup=com.routepatch.biolink
 mqttClientArtifactId=mqtt-client
 mqttClientVersion=0.0.1-SNAPSHOT
 ```
@@ -293,7 +293,7 @@ Copyright 2026 iBreve Ltd
 
 This project is licensed under the [Apache License, Version 2.0](LICENSE). You may not use these files except in compliance with the License. You may obtain a copy of the License at <http://www.apache.org/licenses/LICENSE-2.0>.
 
-Exception: the vendored Eclipse Paho Android Service sources in `mqtt-client/src/main/java/com/ibreve/biolink/mqtt/internal/paho/*.java` keep their original copyright and license headers and remain available under the Eclipse Public License v1.0 and Eclipse Distribution License v1.0 (copies in [`licenses/`](licenses)).
+Exception: the vendored Eclipse Paho Android Service sources in `mqtt-client/src/main/java/com/routepatch/mqtt_client/internal/paho/*.java` keep their original copyright and license headers and remain available under the Eclipse Public License v1.0 and Eclipse Distribution License v1.0 (copies in [`licenses/`](licenses)).
 
 ## Third-Party Notices
 

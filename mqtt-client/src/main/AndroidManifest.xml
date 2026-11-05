@@ -7,7 +7,7 @@
 
     <application>
         <service
-            android:name="com.ibreve.biolink.mqtt.internal.paho.MqttService"
+            android:name="com.routepatch.mqtt_client.internal.paho.MqttService"
             android:exported="false" />
     </application>
 

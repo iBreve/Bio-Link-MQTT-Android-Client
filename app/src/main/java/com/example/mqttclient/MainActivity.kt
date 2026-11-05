@@ -31,8 +31,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.ibreve.biolink.mqtt.MqttConnectionState
-import com.ibreve.biolink.mqtt.MqttProtocolVersion
+import com.routepatch.mqtt_client.MqttConnectionState
+import com.routepatch.mqtt_client.MqttProtocolVersion
 import com.example.mqttclient.ui.theme.MQTTClientTheme
 
 class MainActivity : ComponentActivity() {

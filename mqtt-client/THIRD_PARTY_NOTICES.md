@@ -3,7 +3,7 @@
 ## Vendored source
 
 This module vendors source from Eclipse Paho Android Service 1.1.1
-(`src/main/java/com/ibreve/biolink/mqtt/internal/paho/*.java`).
+(`src/main/java/com/routepatch/mqtt_client/internal/paho/*.java`).
 
 - Project: Eclipse Paho Android Service
 - Source: https://github.com/eclipse-paho/paho.mqtt.android

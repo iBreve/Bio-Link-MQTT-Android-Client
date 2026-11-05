@@ -1,2 +1,2 @@
--keep class com.ibreve.biolink.mqtt.internal.paho.MqttService { *; }
--keep class com.ibreve.biolink.mqtt.internal.paho.MqttServiceBinder { *; }
+-keep class com.routepatch.mqtt_client.internal.paho.MqttService { *; }
+-keep class com.routepatch.mqtt_client.internal.paho.MqttServiceBinder { *; }

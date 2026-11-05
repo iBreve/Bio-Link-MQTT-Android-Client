@@ -18,7 +18,7 @@ val bitbucketPackagesToken = providers.gradleProperty("bitbucketPackagesToken")
     .orElse(providers.environmentVariable("BITBUCKET_PACKAGES_TOKEN"))
 
 android {
-    namespace = "com.ibreve.biolink.mqtt"
+    namespace = "com.routepatch.mqtt_client"
     compileSdk {
         version = release(36) {
             minorApiLevel = 1
@@ -70,7 +70,7 @@ afterEvaluate {
                 from(components["release"])
 
                 groupId = providers.gradleProperty("mqttClientGroup")
-                    .getOrElse("com.ibreve.biolink")
+                    .getOrElse("com.routepatch.mqtt")
                 artifactId = providers.gradleProperty("mqttClientArtifactId")
                     .getOrElse("mqtt-client")
                 version = providers.gradleProperty("mqttClientVersion")
