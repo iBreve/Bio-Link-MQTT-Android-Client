@@ -1,0 +1,2 @@
+-keep class com.ibreve.biolink.mqtt.internal.paho.MqttService { *; }
+-keep class com.ibreve.biolink.mqtt.internal.paho.MqttServiceBinder { *; }
