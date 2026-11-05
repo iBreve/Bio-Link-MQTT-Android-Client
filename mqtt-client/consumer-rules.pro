@@ -1,0 +1,2 @@
+-keep class com.routepatch.mqtt_client.internal.paho.MqttService { *; }
+-keep class com.routepatch.mqtt_client.internal.paho.MqttServiceBinder { *; }
