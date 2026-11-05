@@ -239,7 +239,7 @@ Publish the library to Maven local:
 The checked-in `gradle.properties` publishes the library as:
 
 ```text
-com.routepatch.biolink:mqtt-client:0.0.1-SNAPSHOT
+com.routepatch.biolink:mqtt-client:1.0.0
 ```
 
 Override coordinates with Gradle properties:
@@ -247,7 +247,7 @@ Override coordinates with Gradle properties:
 ```properties
 mqttClientGroup=com.routepatch.biolink
 mqttClientArtifactId=mqtt-client
-mqttClientVersion=0.0.1-SNAPSHOT
+mqttClientVersion=1.0.0
 ```
 
 To publish to a generic private Maven repository:
@@ -283,7 +283,7 @@ BITBUCKET_PACKAGES_TOKEN
 
 ## Status And Limitations
 
-- Pre-release version `0.0.1-SNAPSHOT`; the API may still change.
+- Version `1.0.0`.
 - The Paho engine supports MQTT 3.1.1 only. Use the HiveMQ engine for MQTT 5.0.
 - No artifact is published to a public Maven repository yet; use the library from source or Maven local.
 

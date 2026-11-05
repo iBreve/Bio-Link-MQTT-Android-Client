@@ -74,7 +74,7 @@ afterEvaluate {
                 artifactId = providers.gradleProperty("mqttClientArtifactId")
                     .getOrElse("mqtt-client")
                 version = providers.gradleProperty("mqttClientVersion")
-                    .getOrElse("0.1.0-SNAPSHOT")
+                    .getOrElse("1.0.0")
             }
         }
 
